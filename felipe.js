@@ -69,22 +69,29 @@ function doRequest(coord, callback){
 
 
 console.log("comecou");
-(function() {
-    for(var i =0; i<$(".app-link-publisher").length; i++){
-        plotWait(i);
-        console.log("1");
-    }
-    for(var c =0; c<$(".app-link-publisher").length; c++){
-        (function(c){
-        console.log("coord");
-        doRequest(c, function(result){
-            console.log(c);
-            console.log(result.results.length > 0);
-            if (result.results === 0){
-                plotNot(c);
-            }else {
-                plotExists(c);
+finished = false;
+size = 0;
+setInterval(function(){
+    if($(".app-link-publisher").length > size){
+        (function() {
+            for(var i =size; i<$(".app-link-publisher").length; i++){
+                plotWait(i);
+                console.log("1");
             }
-        });})(c);
+            for(var c =size; c<$(".app-link-publisher").length; c++){
+                (function(c){
+                    console.log("coord");
+                    doRequest(c, function(result){
+                        console.log(c);
+                        console.log(result.results.length > 0);
+                        if (result.results === 0){
+                            plotNot(c);
+                        }else {
+                            plotExists(c);
+                        }
+                    });})(c);
+            }
+            size = $(".app-link-publisher").length;
+        })();
     }
-})();
+},1000);
