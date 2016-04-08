@@ -8,7 +8,7 @@
 // @grant        GM_xmlhttpRequest
 // ==/UserScript==
 
-selection = ".browse-app-large-description";
+selection = ".browse-app-large-main-info";
 
 streakUserAPI = "ae354e8f14e2433ba79b43cc9b523854";
 streakPipelineKey = "06de197ef9c24b19adc85b52032dac5f";
@@ -65,7 +65,7 @@ function streakGet(url, callback) {
 
 function doRequest(coord, callback){
     //TEM QUE CORRIGIR ESSA CHAMADA AQUI
-    var name = $($($("div.browse-app-large-description")[coord]).children()[0]).text();
+    var name = $($($(selection)[coord]).children()[0]).text();
     var result = streakGet("https://www.streak.com/api/v1/search?query="+name.replace(",","").split(' ').slice(0,2).join(' '), callback);
 }
 
